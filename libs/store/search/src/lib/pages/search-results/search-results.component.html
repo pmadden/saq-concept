@@ -1,0 +1,135 @@
+<div class="no-results-found" *ngIf="searchQueryResponse?.totalCount == 0 && searchOptions?.term !== '' && !isLoading">
+  <div class="content">
+    <div></div>
+    <div>D&eacute;sol&eacute;, aucun r&eacute;sultat</div>
+    <div class="did-you-mean" *ngIf="searchQueryResponse?.queryCorrections?.length">
+      &nbsp; Voulez-vous voir les r&eacute;sultats pour <a routerLink="/search/{{ getQueryCorrection() }}">{{ getQueryCorrection() }}</a>?
+    </div>
+  </div>
+</div>
+<ng-container *ngIf="searchOptions?.term !== '' && searchQueryResponse?.totalCount !== 0">
+<div class="section sticky">
+  <div class="header-info">
+    <div class="results-count">
+      {{ searchResults?.length || 0 }} de {{ searchQueryResponse?.totalCount || 0 }} R&eacute;sultats pour {{ searchOptions.term }}
+    </div>
+    <div class="results-sort-criteria">
+      <span [class.sorted-by]="searchOptions.sortCriteria === 'relevancy'" (click)="sortByRelevancy()">Pertinence</span>
+      <span [class.sorted-by]="searchOptions.sortCriteria.includes('@tpprixnum')" (click)="toggleSortByPrice()">
+        Prix
+        <svg viewBox="0 0 24 24" [class.desc]="searchOptions.sortCriteria === '@tpprixnum descending'">
+          <path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z" />
+        </svg>
+      </span>
+    </div>
+  </div>
+  <div class="active-filters" *ngIf="searchOptions?.activeFilters?.length">
+    <ul class="active-filters-list">
+      <li *ngFor="let filter of searchOptions?.activeFilters; index as idx;" (click)="removeFacetFilter(filter.field, filter.value)">
+        <div class="filter-info">
+          <div class="facet-field">{{ filterFields.get(filter.field) }}</div>
+          <div>
+            <ng-container *ngIf="filter.field == 'tpenspecial'; else elseBlock">
+              En Sp&eacute;cial
+            </ng-container>
+            <ng-template #elseBlock>
+              {{ filter.value }}
+            </ng-template>
+          </div>
+        </div>
+        <div class="close">
+          <svg alt="Clear" focusable="false" enable-background="new 0 0 13 13" viewBox="0 0 13 13">
+            <path d="m7.881 6.501 4.834-4.834c.38-.38.38-1.001 0-1.381s-1.001-.38-1.381 0l-4.834 4.834-4.834-4.835c-.38-.38-1.001-.38-1.381 0s-.38 1.001 0 1.381l4.834 4.834-4.834 4.834c-.38.38-.38 1.001 0 1.381s1.001.38 1.381 0l4.834-4.834 4.834 4.834c.38.38 1.001.38 1.381 0s .38-1.001 0-1.381z"></path>
+          </svg>
+        </div>
+      </li>
+    </ul>
+    <button class="clear-active-filters" (click)="clearALlFacetFilters()">Enlever tous les filtres</button>
+  </div>
+</div>
+
+<div class="results-container">
+  <div class="facets-container" [class.display-facets]="this.config.viewFilters && searchQueryResponse?.totalCount">
+    <h3>Filtres</h3>
+    <ul class="facet-list">
+      <ng-container *ngFor="let facet of groupByResults; index as i;">
+        <li *ngIf="facet.values?.length">
+          <div class="study-container" [class.expand]="facet.expanded" (click)="toggleFacet(i)">
+            <div>
+              {{ filterFields.get(facet.field) }}
+            </div>
+            <div class="toggle-expand">
+              <svg viewBox="0 0 24 24">
+                <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
+              </svg>
+            </div>
+          </div>
+          <div class="series-container">
+            <ul class="series-list">
+              <li *ngFor="let value of facet.values; index as idx;" (click)="applyFacetFilter(facet.field, value.value)">
+                <div>
+                  <ng-container *ngIf="facet.field == 'tpenspecial'; else elseBlock">
+                    En Sp&eacute;cial
+                  </ng-container>
+                  <ng-template #elseBlock>
+                    {{ value.value }}
+                  </ng-template>
+
+                </div>
+                <div>
+                  <span *ngIf="isFacetFilterApplied(facet.field, value.value)" class="filtered-by"></span>
+                </div>
+                <div class=""><span>{{ value.numberOfResults }}</span></div>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+
+  <div class="results-grid-container">
+    <ul class="results-grid">
+      <li class="product-info" *ngFor="let product of searchResults" (click)="setSelectedProduct(product); openDialog()">
+        <div class="product-thumbnail"><img src="{{ product.raw.tpthumbnailuri }}"></div>
+        <div class="product-name">{{ product.raw.systitle }}</div>
+        <div class="product-format">{{ product.raw.tpformat }}</div>
+        <div class="product-category-country">
+          <div class="product-category">{{ product.raw.tpcategorie }}</div>
+          <div class="product-country">{{ product.raw.tppays }}</div>
+        </div>
+        <div>
+          <div class="product-code-saq">Code SAQ {{ product.raw.tpcodesaq}}</div>
+        </div>
+        <div class="product-availability">
+      <span *ngFor="let location of product.raw.tpdisponibilite.split(';')">
+        <svg viewBox="0 0 24 24">
+          <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+        </svg>
+        {{ location }}
+      </span>
+        </div>
+        <div class="product-price-normal" *ngIf="product?.raw?.tpenspecial">
+          <div style="font-size: 0.875rem; font-weight: 500; padding-bottom: 0.125rem; color: rgba(80,80,80,1); text-decoration: line-through;">{{ product?.raw?.tpprixinitial}}</div>
+          <div style="color: rgba(200,0,0,1)">{{ product?.raw?.tpprixrabais }}</div>
+        </div>
+        <div class="product-price-normal">{{ product?.raw?.tpprixnormal }}</div>
+        <div class="product-ghost">
+          <div class="ghost-img" style="background-image: linear-gradient(to right, rgba(255, 255, 255, 1) 35%, rgba(255, 255, 255, 0) 50%),
+      linear-gradient(to top, rgba(255, 255, 255, 1) 38%, rgba(255, 255, 255, 0) 58%),
+      url('{{ product?.raw?.tpthumbnailuri }}')"></div>
+        </div>
+        <div class="product-view">
+          <span>Voir le produit</span>
+        </div>
+      </li>
+    </ul>
+
+    <div *ngIf="(searchResults?.length || 0) < (searchQueryResponse?.totalCount || 0 )" class="view-more">
+      <button (click)="retrieveMoreProducts()">Voir Plus</button>
+    </div>
+  </div>
+
+</div>
+
+</ng-container>

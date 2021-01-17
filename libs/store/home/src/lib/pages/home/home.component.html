@@ -1,0 +1,43 @@
+<ul class="results-grid">
+  <li class="product-info" routerLink="/search/gin"
+      (click)="trackEvent('promo_view', {page: 'home', promo: 'Gin'})">
+    <div class="product-thumbnail">
+      <img src="assets/jpg/gin1.jpeg">
+    </div>
+    <div class="product-name">Gin</div>
+    <div class="product-ghost">
+      <div class="ghost-img" style="background-image: linear-gradient(to right, rgba(255, 255, 255, 1) 25%, rgba(255, 255, 255, 0) 50%),
+      linear-gradient(to top, rgba(255, 255, 255, 1) 23%, rgba(255, 255, 255, 0) 58%),
+      url('assets/jpg/gin1.jpeg')"></div>
+    </div>
+    <div class="product-view">
+      <span>Découvrir gin</span>
+    </div>
+  </li>
+  <li class="product-info" routerLink="/search/scotch single malt"
+      (click)="trackEvent('promo_view', {page: 'home', promo: 'Scotch Single Malt'})">
+    <div class="product-thumbnail"><img src="assets/jpg/scotch3.jpeg"></div>
+    <div class="product-name">Scotch</div>
+    <div class="product-ghost">
+      <div class="ghost-img" style="background-image: linear-gradient(to right, rgba(255, 255, 255, 1) 25%, rgba(255, 255, 255, 0) 60%),
+      linear-gradient(to top, rgba(255, 255, 255, 1) 20%, rgba(255, 255, 255, 0) 58%),
+      url('assets/jpg/scotch3.jpeg')"></div>
+    </div>
+    <div class="product-view">
+      <span>Découvrir Scotch Single Malt</span>
+    </div>
+  </li>
+  <li class="product-info" routerLink="/search/brunello di montalcino"
+      (click)="trackEvent('promo_view', {page: 'home', promo: 'Brunello di Montalcino'})">
+    <div class="product-thumbnail"><img src="assets/jpg/brunello2.jpeg"></div>
+    <div class="product-name">Brunello</div>
+    <div class="product-ghost">
+      <div class="ghost-img" style="background-image: linear-gradient(to right, rgba(255, 255, 255, 1) 25%, rgba(255, 255, 255, 0) 50%),
+      linear-gradient(to top, rgba(255, 255, 255, 1) 23%, rgba(255, 255, 255, 0) 58%),
+      url('assets/jpg/brunello2.jpeg')"></div>
+    </div>
+    <div class="product-view">
+      <span>Découvrir Brunello di Montalcino</span>
+    </div>
+  </li>
+</ul>

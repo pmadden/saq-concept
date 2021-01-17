@@ -1,0 +1,17 @@
+{
+  "projectName": "saqconcept",
+  "version": "3.0",
+  "frontend": "javascript",
+  "javascript": {
+    "framework": "angular",
+    "config": {
+      "SourceDir": "src",
+      "DistributionDir": "dist/store",
+      "BuildCommand": "npm run-script build",
+      "StartCommand": "ng serve"
+    }
+  },
+  "providers": [
+    "awscloudformation"
+  ]
+}

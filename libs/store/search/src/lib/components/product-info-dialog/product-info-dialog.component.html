@@ -1,0 +1,96 @@
+<div class="close" (click)="onClose();">
+  <svg viewBox="0 0 24 24">
+    <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+  </svg>
+</div>
+<div class="product-container">
+  <div class="product-thumbnail">
+    <img src="{{ product?.raw?.tpthumbnailuri }}">
+  </div>
+  <div class="product-info">
+    <div class="product-name">{{ product?.raw?.systitle }}</div>
+    <div class="product-category-country">
+      <span class="product-category" *ngIf="product?.raw?.tpcategorie">{{ product?.raw?.tpcategorie }},&nbsp;</span>
+      <span class="product-country" *ngIf="product?.raw?.tppays">{{ product?.raw?.tppays }},&nbsp;</span>
+      <span class="product-format" *ngIf="product?.raw?.tpformat">{{ product?.raw?.tpformat }}</span>
+    </div>
+
+    <div class="product-purchase">
+      <div class="pricing">
+        <div class="product-price-normal" *ngIf="product?.raw?.tpenspecial">
+          <div style="font-size: 0.875rem; font-weight: 500; padding-bottom: 0.125rem; color: rgba(80,80,80,1); text-decoration: line-through;">{{ product?.raw?.tpprixinitial}}</div>
+          <div style="color: rgba(200,0,0,1)">{{ product?.raw?.tpprixrabais }}</div>
+        </div>
+        <div class="product-price-normal">{{ product?.raw?.tpprixnormal }}</div>
+      </div>
+      <div class="purchase">
+        <button>Ajouter au panier</button>
+      </div>
+    </div>
+
+    <div class="product-meta">
+      <div *ngIf="product?.raw?.tppays">
+        <div>Pays</div>
+        <div>{{ product?.raw?.tppays}}</div>
+      </div>
+      <div *ngIf="product?.raw?.tpregion">
+        <div>Region</div>
+        <div>{{ product?.raw?.tpregion}}</div>
+      </div>
+      <div *ngIf="product?.raw?.tpformat">
+        <div>Format</div>
+        <div>{{ product?.raw?.tpformat}}</div>
+      </div>
+      <div *ngIf="product?.raw?.tpcepagesplitgroup">
+        <div>Cepage</div>
+        <div>
+          <span *ngFor="let variety of product?.raw?.tpcepagesplitgroup?.split(';'); let lastItem = last">
+            {{ variety }}<span *ngIf="!lastItem">,&nbsp;</span>
+          </span>
+        </div>
+      </div>
+      <div *ngIf="product?.raw?.tpproducteur">
+        <div>Producteur</div>
+        <div>{{ product?.raw?.tpproducteur}}</div>
+      </div>
+      <div *ngIf="product?.raw?.tpbouchon">
+        <div>Bouchon</div>
+        <div>{{ product?.raw?.tpbouchon}}</div>
+      </div>
+      <div *ngIf="product?.raw?.tpcodesaq">
+        <div>Code SAQ</div>
+        <div>{{ product?.raw?.tpcodesaq}}</div>
+      </div>
+      <div *ngIf="product?.raw?.tpcodecup">
+        <div>Code CUP</div>
+        <div>{{ product?.raw?.tpcodecup}}</div>
+      </div>
+      <div *ngIf="product?.raw?.tppastilledegout">
+        <div>Pastille de go&ucirc;t</div>
+        <div>{{ product?.raw?.tppastilledegout}}</div>
+      </div>
+      <div *ngIf="product?.raw?.tpcouleur">
+        <div>Couleur</div>
+        <div>{{ product?.raw?.tpcouleur}}</div>
+      </div>
+      <div *ngIf="product?.raw?.tpregion">
+        <div>Region</div>
+        <div>{{ product?.raw?.tpregion}}</div>
+      </div>
+      <div *ngIf="product?.raw?.tpcontenant">
+        <div>Contenant</div>
+        <div>{{ product?.raw?.tpcontenant}}</div>
+      </div>
+    </div>
+
+    <div class="product-compagnie-description">
+      <div>{{ product?.raw?.tpcompagniedescription }}</div>
+    </div>
+  </div>
+</div>
+
+<div class="product-ghost">
+  <div class="ghost-img" style="background-image: linear-gradient(to right, rgba(255, 255, 255, 1) 25%, rgba(255, 255, 255, 0) 50%),
+      linear-gradient(to top, rgba(255, 255, 255, 1) 18%, rgba(255, 255, 255, 0) 58%),
+      url('{{ product?.raw?.tpthumbnailuri }}')"></div>
+</div>
