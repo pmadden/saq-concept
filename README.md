@@ -6,10 +6,10 @@ See a live demo at [angry.ninja](https://angry.ninja)
 
 Developed for modern web browsers, built with Angular 11 and hosted on AWS Amplify.
 
-##Features
+## Features
 * Suggested product searches on the home page.
-* Toggle the filter list that is displayed in the search result view. Setting saved to localstorage.
-* Toggle widescreen mode to see more products in search result view. Setting saved to localstorage.
+* Toggle the filter list that is displayed in the search result view. Setting is saved to localstorage.
+* Toggle widescreen mode to see more products in search result view. Setting is saved to localstorage.
 * Filter by various facets. View and remove applied filters.
 * Popup product box shows additional details of each product.
 * Sort search results by Relevancy or Price (Asc/Desc)
