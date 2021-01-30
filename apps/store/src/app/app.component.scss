@@ -5,6 +5,16 @@
   height: 100%;
 }
 
+@media screen
+  and (min-device-width: 320px)
+  and (max-device-width: 480px) {
+  .activitybar {
+    .toggle-widescreen {
+      display: none;
+    }
+  }
+}
+
 router-outlet { display: none; }
 
 .app-layout {
@@ -33,7 +43,7 @@ router-outlet { display: none; }
   grid-auto-flow: column;
   grid-gap: 0.375rem;
   grid-template-columns: 2.75rem 1fr auto;
-  padding: 0.625rem 0;
+  padding: 0.625rem 0.75rem;
   background-color: rgba(255,255,255,1);
   align-items: center;
   z-index: 1000;
@@ -111,6 +121,7 @@ router-outlet { display: none; }
   width: 100%;
   max-width: 64rem;
   margin: 0 auto;
+  padding: 0 0.75rem;
 }
 
 footer {

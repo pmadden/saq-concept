@@ -111,8 +111,9 @@ export class SearchResultsComponent implements OnInit, OnDestroy, AfterViewInit 
   openDialog(): void {
     const dialogConfig = new MatDialogConfig();
 
-    dialogConfig.width = '56rem';
-    dialogConfig.height = '36rem';
+    // dialogConfig.width = '56rem';
+    // dialogConfig.height = '36rem';
+    dialogConfig.panelClass = 'product-info-dialog';
     dialogConfig.data = {
       product: this.selectedProduct
     };

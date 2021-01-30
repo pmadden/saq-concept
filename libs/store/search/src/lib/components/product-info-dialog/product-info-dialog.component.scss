@@ -24,6 +24,32 @@
   box-sizing: border-box;
 }
 
+@media screen
+and (min-device-width: 320px)
+and (max-device-width: 480px) {
+  .close {
+    svg {
+      fill: rgba(0,0,0,0.5) !important;
+    }
+  }
+
+  .product-container {
+    flex-direction: column;
+
+    .product-thumbnail {
+      flex-basis: 50%;
+
+      img {
+        height: 18rem;
+      }
+    }
+
+    .product-info {
+      padding: 1rem;
+    }
+  }
+}
+
 .close {
   position: absolute;
   top: 0.5rem;

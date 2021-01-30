@@ -2,7 +2,7 @@
   display: block;
   width: 100%;
   height: 100%;
-  padding: 6rem 0 4rem;
+  padding-top: 6rem;
 }
 
 * {
@@ -17,12 +17,12 @@ ul.results-grid {
 
   display: grid;
   grid-gap: 1.25rem;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
 
   .product-info {
     position: relative;
     margin-top: 5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 5rem;
     padding-bottom: 2rem;
     border-radius: 0.3125rem;
     box-shadow: 0 0.0625rem 0.1875rem 0 rgba(0, 0, 0, 0.2);
